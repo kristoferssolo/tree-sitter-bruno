@@ -10,16 +10,19 @@
       ],
       "injection-regex": "^bruno$",
       "highlights": [
-        "queries/highlights.scm"
+        "queries/bruno/highlights.scm"
       ],
       "injections": [
-        "queries/injections.scm"
+        "queries/bruno/injections.scm"
       ],
       "tags": [
-        "queries/tags.scm"
+        "queries/bruno/tags.scm"
       ],
       "folds": [
-        "queries/folds.scm"
+        "queries/bruno/folds.scm"
+      ],
+      "indents": [
+        "queries/bruno/folds.scm"
       ]
     }
   ],
@@ -46,4 +49,3 @@
     "swift": true
   }
 }
-

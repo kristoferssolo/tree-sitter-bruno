@@ -1,4 +1,4 @@
-""" Bruno grammar for tree-sitter"""
+"""Bruno grammar for tree-sitter"""
 
 from importlib.resources import files as _files
 
@@ -6,7 +6,7 @@ from ._binding import language
 
 
 def _get_query(name, file):
-    query = _files(f"{__package__}.queries") / file
+    query = _files(f"{__package__}.queries") / "bruno" / file
     globals()[name] = query.read_text()
     return globals()[name]
 
@@ -36,7 +36,18 @@ __all__ = [
 
 
 def __dir__():
-    return sorted(__all__ + [
-        "__all__", "__builtins__", "__cached__", "__doc__", "__file__",
-        "__loader__", "__name__", "__package__", "__path__", "__spec__",
-    ])
+    return sorted(
+        __all__
+        + [
+            "__all__",
+            "__builtins__",
+            "__cached__",
+            "__doc__",
+            "__file__",
+            "__loader__",
+            "__name__",
+            "__package__",
+            "__path__",
+            "__spec__",
+        ]
+    )

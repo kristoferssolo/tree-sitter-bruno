@@ -1,6 +1,8 @@
 from unittest import TestCase
 
-import tree_sitter, tree_sitter_bruno
+import tree_sitter_bruno
+
+import tree_sitter
 
 
 class TestLanguage(TestCase):

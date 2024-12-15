@@ -28,3 +28,54 @@ core = ["tree-sitter~=0.22"]
 [tool.cibuildwheel]
 build = "cp39-*"
 build-frontend = "build"
+
+[dependency-groups]
+dev = ["ruff>=0.8.3"]
+
+[tool.ruff]
+show-fixes = true
+line-length = 120
+indent-width = 4
+target-version = "py39"
+
+[tool.ruff.lint]
+extend-select = [
+  "B",
+  "BLE",
+  "C",
+  "C4",
+  "E",
+  "ERA",
+  "F",
+  "I",
+  "ICN",
+  "INP",
+  "N",
+  "PL",
+  "PGH",
+  "PIE",
+  "Q",
+  "RET",
+  "RSE",
+  "RUF",
+  "S",
+  "SIM",
+  "T20",
+  "TCH",
+  "TID",
+  "PT",
+  "UP",
+  "DJ",
+  "W",
+]
+ignore = []
+preview = true
+fixable = ["ALL"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "lf"
+docstring-code-format = true
+docstring-code-line-length = 40

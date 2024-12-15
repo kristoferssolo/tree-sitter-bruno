@@ -41,7 +41,9 @@ setup(
             extra_compile_args=[
                 "-std=c11",
                 "-fvisibility=hidden",
-            ] if system() != "Windows" else [
+            ]
+            if system() != "Windows"
+            else [
                 "/std:c11",
                 "/utf-8",
             ],
@@ -54,9 +56,6 @@ setup(
             py_limited_api=True,
         )
     ],
-    cmdclass={
-        "build": Build,
-        "bdist_wheel": BdistWheel
-    },
-    zip_safe=False
+    cmdclass={"build": Build, "bdist_wheel": BdistWheel},
+    zip_safe=False,
 )
