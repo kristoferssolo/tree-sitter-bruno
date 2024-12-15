@@ -1,0 +1,192 @@
+==========
+JSON Body
+==========
+
+body:json {
+  {
+    "apiKey": "secret",
+    "numbers": "9988776655",
+    "message": "Woof! lets play with some apis"
+  }
+}
+
+---
+
+(source_file
+	(bodies
+		(bodyjson
+      (keyword)
+      (textblock
+        (rawtext)
+      )
+		)
+	)
+)
+
+==========
+Text Body
+==========
+
+body:text {
+	This is a text body
+}
+
+---
+
+(source_file
+	(bodies
+		(bodytext
+      (keyword)
+      (textblock
+        (rawtext)
+      )
+		)
+	)
+)
+
+=========
+XML Body
+=========
+
+body:xml {
+	<xml>
+    <name>John</name>
+    <age>30</age>
+  </xml>
+}
+
+---
+
+(source_file
+	(bodies
+		(bodyxml
+      (keyword)
+      (textblock
+        (rawtext)
+      )
+		)
+	)
+)
+
+=============
+GraphQL Body
+=============
+
+body:graphql {
+  {
+    launchesPast {
+      launch_site {
+        site_name
+      }
+      launch_success
+    }
+  }
+}
+
+---
+
+(source_file
+	(bodies
+		(bodygraphql
+      (keyword)
+      (textblock
+        (rawtext)
+      )
+		)
+	)
+)
+
+==================
+GraphQL Vars Body
+==================
+
+body:graphql:vars {
+  {
+    "limit": 5
+  }
+}
+
+---
+
+(source_file
+	(bodies
+		(bodygraphqlvars
+      (keyword)
+      (textblock
+        (rawtext)
+      )
+		)
+	)
+)
+
+=====================
+Form URLEncoded Body
+=====================
+
+body:form-urlencoded {
+  apikey: secret
+  numbers: +91998877665
+  ~message: hello
+}
+
+---
+
+(source_file
+	(bodies
+		(bodyforms
+			(bodyformurlencoded
+    	  (keyword)
+				(dictionary
+					(dictionary_pair
+						(key)
+						(value)
+					)
+					(dictionary_pair
+						(key)
+						(value)
+					)
+					(dictionary_pair
+						(key)
+						(value)
+					)
+				)
+			)
+		)
+	)
+)
+
+=====================
+Form Multipart Body
+=====================
+
+body:multipart-form {
+  apikey: secret
+  numbers: +91998877665
+  ~message: hello
+}
+
+---
+
+(source_file
+	(bodies
+		(bodyforms
+			(bodyformmultipart
+    	  (keyword)
+				(dictionary
+					(dictionary_pair
+						(key)
+						(value)
+					)
+					(dictionary_pair
+						(key)
+						(value)
+					)
+					(dictionary_pair
+						(key)
+						(value)
+					)
+				)
+			)
+		)
+	)
+)

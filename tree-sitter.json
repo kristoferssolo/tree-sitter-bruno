@@ -1,0 +1,43 @@
+{
+  "grammars": [
+    {
+      "name": "bruno",
+      "camelcase": "Bruno",
+      "scope": "source.bruno",
+      "path": ".",
+      "file-types": [
+        "bru"
+      ],
+      "injection-regex": "^bruno$",
+      "highlights": [
+        "queries/highlights.scm"
+      ],
+      "injections": [
+        "queries/injections.scm"
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": " Bruno grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "Kristofers Solo",
+        "email": "dev@kristofers.xyz"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/kristoferssolo/tree-sitter-bruno"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true
+  }
+}
+
