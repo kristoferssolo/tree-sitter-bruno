@@ -1,5 +1,5 @@
 vim.filetype.add({
-	pattern = { ["*%.bru"] = "bruno" },
+	extension = { bru = "bruno" },
 })
 
 require("nvim-treesitter.parsers").get_parser_configs().bruno = {
