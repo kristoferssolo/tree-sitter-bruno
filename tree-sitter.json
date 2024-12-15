@@ -14,6 +14,12 @@
       ],
       "injections": [
         "queries/injections.scm"
+      ],
+      "tags": [
+        "queries/tags.scm"
+      ],
+      "folds": [
+        "queries/folds.scm"
       ]
     }
   ],
