@@ -516,6 +516,10 @@
         {
           "type": "SYMBOL",
           "name": "assert"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "params"
         }
       ]
     },
@@ -655,6 +659,55 @@
         {
           "type": "SYMBOL",
           "name": "textblock"
+        }
+      ]
+    },
+    "params": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "params_path"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "params_query"
+        }
+      ]
+    },
+    "params_query": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "params:query"
+          },
+          "named": true,
+          "value": "keyword"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dictionary"
+        }
+      ]
+    },
+    "params_path": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "params:path"
+          },
+          "named": true,
+          "value": "keyword"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dictionary"
         }
       ]
     },

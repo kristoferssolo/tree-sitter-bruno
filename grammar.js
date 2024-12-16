@@ -94,7 +94,7 @@ module.exports = grammar({
       seq(alias("body:multipart-form", $.keyword), $.dictionary),
 
     varsandassert: ($) =>
-      choice($.vars, $.vars_secret, $.varsreq, $.varsres, $.assert),
+      choice($.vars, $.vars_secret, $.varsreq, $.varsres, $.assert, $.params),
     vars: ($) => seq(alias("vars", $.keyword), $.dictionary),
     vars_secret: ($) => seq(alias("vars:secret", $.keyword), $.array),
     varsreq: ($) => seq(alias("vars:pre-request", $.keyword), $.dictionary),
@@ -106,6 +106,10 @@ module.exports = grammar({
     scriptreq: ($) => seq(alias("script:pre-request", $.keyword), $.textblock),
     scriptres: ($) =>
       seq(alias("script:post-response", $.keyword), $.textblock),
+
+    params: ($) => choice($.params_path, $.params_query),
+    params_query: ($) => seq(alias("params:query", $.keyword), $.dictionary),
+    params_path: ($) => seq(alias("params:path", $.keyword), $.dictionary),
 
     tests: ($) => seq(alias("tests", $.keyword), $.textblock),
 
