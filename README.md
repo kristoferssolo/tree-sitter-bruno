@@ -2,6 +2,18 @@
 
 [Bruno](https://github.com/usebruno/bruno) grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 
+## Installation
+
+Install the plugin with your preferred package manager:
+
+### [Lazy](https://github.com/folke/lazy.nvim)
+
+```lua
+{
+    "kristoferssolo/tree-sitter-bruno",
+}
+```
+
 ## References
 
 - [Bruno Language Grammar](https://github.com/usebruno/bruno/tree/main/packages/bruno-lang/v2)
@@ -11,4 +23,4 @@
 
 ## Special Thanks
 
-[Scalamando](https://github.com/Scalamando) - *for creating [<https://github.com/Scalamando/tree-sitter-bruno](https://github.com/Scalamando/tree-sitter-bruno>)*
+[Scalamando](https://github.com/Scalamando) - *for creating [https://github.com/Scalamando/tree-sitter-bruno](https://github.com/Scalamando/tree-sitter-bruno>)*
