@@ -1,5 +1,5 @@
 /**
- * @file  Bruno grammar for tree-sitter
+ * @file Bruno grammar for tree-sitter
  * @author Kristofers Solo <dev@kristofers.xyz>
  * @license MIT
  */
@@ -8,13 +8,9 @@
 // @ts-check
 
 module.exports = grammar({
-  name: "bruno",
+	name: "bruno",
 
-  extras: (_) => [/\s+|(\r?\n)/],
-
-  externals: ($) => [$.rawtext],
-
-  rules: {
+	rules: {
     source_file: ($) =>
       repeat(
         field(
@@ -129,5 +125,5 @@ module.exports = grammar({
 
     key: (_) => /[^\s\r\n:]+/,
     value: (_) => /[^\r\n]*/,
-  },
+	},
 });

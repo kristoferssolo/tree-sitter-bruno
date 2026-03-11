@@ -1,35 +1,22 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
   "grammars": [
     {
       "name": "bruno",
       "camelcase": "Bruno",
+      "title": "Bruno",
       "scope": "source.bruno",
-      "path": ".",
       "file-types": [
         "bru"
       ],
       "injection-regex": "^bruno$",
-      "highlights": [
-        "queries/bruno/highlights.scm"
-      ],
-      "injections": [
-        "queries/bruno/injections.scm"
-      ],
-      "tags": [
-        "queries/bruno/tags.scm"
-      ],
-      "folds": [
-        "queries/bruno/folds.scm"
-      ],
-      "indents": [
-        "queries/bruno/folds.scm"
-      ]
+      "class-name": "TreeSitterBruno"
     }
   ],
   "metadata": {
     "version": "0.1.0",
     "license": "MIT",
-    "description": " Bruno grammar for tree-sitter",
+    "description": "Bruno grammar for tree-sitter",
     "authors": [
       {
         "name": "Kristofers Solo",
@@ -37,7 +24,7 @@
       }
     ],
     "links": {
-      "repository": "https://github.com/kristoferssolo/tree-sitter-bruno"
+      "repository": "https://codeberg.org/kristoferssolo/tree-sitter-bruno"
     }
   },
   "bindings": {
@@ -46,6 +33,8 @@
     "node": true,
     "python": true,
     "rust": true,
-    "swift": true
+    "swift": true,
+    "zig": false
   }
 }
+
