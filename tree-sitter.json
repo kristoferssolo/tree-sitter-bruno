@@ -6,6 +6,7 @@
       "camelcase": "Bruno",
       "title": "Bruno",
       "scope": "source.bruno",
+      "highlights": "queries/highlights.scm",
       "file-types": [
         "bru"
       ],
@@ -37,4 +38,3 @@
     "zig": false
   }
 }
-
