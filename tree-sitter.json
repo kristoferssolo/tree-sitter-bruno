@@ -6,12 +6,13 @@
       "camelcase": "Bruno",
       "title": "Bruno",
       "scope": "source.bruno",
-      "highlights": "queries/highlights.scm",
       "file-types": [
         "bru"
       ],
       "injection-regex": "^bruno$",
-      "class-name": "TreeSitterBruno"
+      "class-name": "TreeSitterBruno",
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections.scm"
     }
   ],
   "metadata": {

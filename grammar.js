@@ -11,6 +11,7 @@ module.exports = grammar({
 	name: "bruno",
 
   extras: (_) => [/\s/],
+  externals: ($) => [$.rawtext],
 
 	rules: {
     source_file: ($) => repeat($.section),
@@ -77,14 +78,14 @@ module.exports = grammar({
         $.bodyformmultipart,
         $.bodyraw,
       ),
-    bodyraw: ($) => seq(alias("body", $.keyword), $.raw_block),
-    bodyjson: ($) => seq(alias("body:json", $.keyword), $.raw_block),
-    bodytext: ($) => seq(alias("body:text", $.keyword), $.raw_block),
-    bodyxml: ($) => seq(alias("body:xml", $.keyword), $.raw_block),
-    bodysparql: ($) => seq(alias("body:sparql", $.keyword), $.raw_block),
-    bodygraphql: ($) => seq(alias("body:graphql", $.keyword), $.raw_block),
+    bodyraw: ($) => seq(alias("body", $.keyword), $.textblock),
+    bodyjson: ($) => seq(alias("body:json", $.keyword), $.textblock),
+    bodytext: ($) => seq(alias("body:text", $.keyword), $.textblock),
+    bodyxml: ($) => seq(alias("body:xml", $.keyword), $.textblock),
+    bodysparql: ($) => seq(alias("body:sparql", $.keyword), $.textblock),
+    bodygraphql: ($) => seq(alias("body:graphql", $.keyword), $.textblock),
     bodygraphqlvars: ($) =>
-      seq(alias("body:graphql:vars", $.keyword), $.raw_block),
+      seq(alias("body:graphql:vars", $.keyword), $.textblock),
     bodyformurlencoded: ($) =>
       seq(alias("body:form-urlencoded", $.keyword), $.object_block),
     bodyformmultipart: ($) =>
@@ -100,17 +101,17 @@ module.exports = grammar({
     assert: ($) => seq(alias("assert", $.keyword), $.assert_block),
 
     script: ($) => choice($.scriptreq, $.scriptres),
-    scriptreq: ($) => seq(alias("script:pre-request", $.keyword), $.raw_block),
+    scriptreq: ($) => seq(alias("script:pre-request", $.keyword), $.textblock),
     scriptres: ($) =>
-      seq(alias("script:post-response", $.keyword), $.raw_block),
+      seq(alias("script:post-response", $.keyword), $.textblock),
 
     params: ($) => choice($.params_path, $.params_query),
     params_query: ($) => seq(alias("params:query", $.keyword), $.object_block),
     params_path: ($) => seq(alias("params:path", $.keyword), $.object_block),
 
-    tests: ($) => seq(alias("tests", $.keyword), $.raw_block),
+    tests: ($) => seq(alias("tests", $.keyword), $.textblock),
 
-    docs: ($) => seq(alias("docs", $.keyword), $.raw_block),
+    docs: ($) => seq(alias("docs", $.keyword), $.textblock),
 
     object_block: ($) => seq("{", repeat($.dictionary_pair), "}"),
     dictionary_pair: ($) => seq($.key, ":", $.dictionary_value),
@@ -124,9 +125,7 @@ module.exports = grammar({
     array_value: ($) =>
       choice($.template_value, $.quoted_value, $.bare_value),
 
-    raw_block: ($) => seq("{", repeat($.raw_fragment), "}"),
-    raw_fragment: ($) => choice($.raw_text, $.raw_block),
-    raw_text: (_) => token(prec(-1, /[^{}]+/)),
+    textblock: ($) => seq("{", optional($.rawtext), "}"),
 
     assert_key: (_) => /[^\r\n:]+/,
 
