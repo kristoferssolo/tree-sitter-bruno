@@ -12,7 +12,8 @@
       "injection-regex": "^bruno$",
       "class-name": "TreeSitterBruno",
       "highlights": "queries/highlights.scm",
-      "injections": "queries/injections.scm"
+      "injections": "queries/injections.scm",
+      "tags": "queries/tags.scm"
     }
   ],
   "metadata": {
