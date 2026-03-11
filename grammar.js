@@ -10,29 +10,30 @@
 module.exports = grammar({
 	name: "bruno",
 
+  extras: (_) => [/\s/],
+
 	rules: {
-    source_file: ($) =>
-      repeat(
-        field(
-          "tag",
-          choice(
-            $.meta,
-            $.http,
-            $.query,
-            $.headers,
-            $.auths,
-            $.bodies,
-            $.varsandassert,
-            $.script,
-            $.tests,
-            $.docs,
-          ),
-        ),
+    source_file: ($) => repeat($.section),
+
+    section: ($) =>
+      choice(
+        $.meta,
+        $.http,
+        $.query,
+        $.headers,
+        $.auth,
+        $.body,
+        $.vars,
+        $.assert,
+        $.params,
+        $.script,
+        $.tests,
+        $.docs,
       ),
 
-    meta: ($) => seq(alias("meta", $.keyword), $.dictionary),
+    meta: ($) => seq(alias("meta", $.keyword), $.object_block),
 
-    http: ($) => seq(alias($.http_verb, $.keyword), $.dictionary),
+    http: ($) => seq(alias($.http_verb, $.keyword), $.object_block),
     http_verb: (_) =>
       choice(
         "get",
@@ -46,11 +47,11 @@ module.exports = grammar({
         "trace",
       ),
 
-    query: ($) => seq(alias("query", $.keyword), $.dictionary),
+    query: ($) => seq(alias("query", $.keyword), $.object_block),
 
-    headers: ($) => seq(alias("headers", $.keyword), $.dictionary),
+    headers: ($) => seq(alias("headers", $.keyword), $.object_block),
 
-    auths: ($) =>
+    auth: ($) =>
       choice(
         $.authawsv4,
         $.authbasic,
@@ -58,13 +59,13 @@ module.exports = grammar({
         $.authdigest,
         $.authoauth2,
       ),
-    authawsv4: ($) => seq(alias("auth:awsv4", $.keyword), $.dictionary),
-    authbasic: ($) => seq(alias("auth:basic", $.keyword), $.dictionary),
-    authbearer: ($) => seq(alias("auth:bearer", $.keyword), $.dictionary),
-    authdigest: ($) => seq(alias("auth:digest", $.keyword), $.dictionary),
-    authoauth2: ($) => seq(alias("auth:oauth2", $.keyword), $.dictionary),
+    authawsv4: ($) => seq(alias("auth:awsv4", $.keyword), $.object_block),
+    authbasic: ($) => seq(alias("auth:basic", $.keyword), $.object_block),
+    authbearer: ($) => seq(alias("auth:bearer", $.keyword), $.object_block),
+    authdigest: ($) => seq(alias("auth:digest", $.keyword), $.object_block),
+    authoauth2: ($) => seq(alias("auth:oauth2", $.keyword), $.object_block),
 
-    bodies: ($) =>
+    body: ($) =>
       choice(
         $.bodyjson,
         $.bodytext,
@@ -72,58 +73,67 @@ module.exports = grammar({
         $.bodysparql,
         $.bodygraphql,
         $.bodygraphqlvars,
-        $.bodyforms,
-        $.body,
+        $.bodyformurlencoded,
+        $.bodyformmultipart,
+        $.bodyraw,
       ),
-    bodyforms: ($) => choice($.bodyformurlencoded, $.bodyformmultipart),
-    body: ($) => seq(alias("body", $.keyword), $.textblock),
-    bodyjson: ($) => seq(alias("body:json", $.keyword), $.textblock),
-    bodytext: ($) => seq(alias("body:text", $.keyword), $.textblock),
-    bodyxml: ($) => seq(alias("body:xml", $.keyword), $.textblock),
-    bodysparql: ($) => seq(alias("body:sparql", $.keyword), $.textblock),
-    bodygraphql: ($) => seq(alias("body:graphql", $.keyword), $.textblock),
+    bodyraw: ($) => seq(alias("body", $.keyword), $.raw_block),
+    bodyjson: ($) => seq(alias("body:json", $.keyword), $.raw_block),
+    bodytext: ($) => seq(alias("body:text", $.keyword), $.raw_block),
+    bodyxml: ($) => seq(alias("body:xml", $.keyword), $.raw_block),
+    bodysparql: ($) => seq(alias("body:sparql", $.keyword), $.raw_block),
+    bodygraphql: ($) => seq(alias("body:graphql", $.keyword), $.raw_block),
     bodygraphqlvars: ($) =>
-      seq(alias("body:graphql:vars", $.keyword), $.textblock),
+      seq(alias("body:graphql:vars", $.keyword), $.raw_block),
     bodyformurlencoded: ($) =>
-      seq(alias("body:form-urlencoded", $.keyword), $.dictionary),
+      seq(alias("body:form-urlencoded", $.keyword), $.object_block),
     bodyformmultipart: ($) =>
-      seq(alias("body:multipart-form", $.keyword), $.dictionary),
+      seq(alias("body:multipart-form", $.keyword), $.object_block),
 
-    varsandassert: ($) =>
-      choice($.vars, $.vars_secret, $.varsreq, $.varsres, $.assert, $.params),
-    vars: ($) => seq(alias("vars", $.keyword), $.dictionary),
-    vars_secret: ($) => seq(alias("vars:secret", $.keyword), $.array),
-    varsreq: ($) => seq(alias("vars:pre-request", $.keyword), $.dictionary),
-    varsres: ($) => seq(alias("vars:post-response", $.keyword), $.dictionary),
+    vars: ($) =>
+      choice($.vars_plain, $.vars_secret, $.varsreq, $.varsres),
+    vars_plain: ($) => seq(alias("vars", $.keyword), $.object_block),
+    vars_secret: ($) => seq(alias("vars:secret", $.keyword), $.array_block),
+    varsreq: ($) => seq(alias("vars:pre-request", $.keyword), $.object_block),
+    varsres: ($) => seq(alias("vars:post-response", $.keyword), $.object_block),
 
-    assert: ($) => seq(alias("assert", $.keyword), $.assert_dictionary),
+    assert: ($) => seq(alias("assert", $.keyword), $.assert_block),
 
     script: ($) => choice($.scriptreq, $.scriptres),
-    scriptreq: ($) => seq(alias("script:pre-request", $.keyword), $.textblock),
+    scriptreq: ($) => seq(alias("script:pre-request", $.keyword), $.raw_block),
     scriptres: ($) =>
-      seq(alias("script:post-response", $.keyword), $.textblock),
+      seq(alias("script:post-response", $.keyword), $.raw_block),
 
     params: ($) => choice($.params_path, $.params_query),
-    params_query: ($) => seq(alias("params:query", $.keyword), $.dictionary),
-    params_path: ($) => seq(alias("params:path", $.keyword), $.dictionary),
+    params_query: ($) => seq(alias("params:query", $.keyword), $.object_block),
+    params_path: ($) => seq(alias("params:path", $.keyword), $.object_block),
 
-    tests: ($) => seq(alias("tests", $.keyword), $.textblock),
+    tests: ($) => seq(alias("tests", $.keyword), $.raw_block),
 
-    docs: ($) => seq(alias("docs", $.keyword), $.textblock),
+    docs: ($) => seq(alias("docs", $.keyword), $.raw_block),
 
-    textblock: ($) => seq("{", optional($.rawtext), "}"),
+    object_block: ($) => seq("{", repeat($.dictionary_pair), "}"),
+    dictionary_pair: ($) => seq($.key, ":", $.dictionary_value),
+    dictionary_value: ($) =>
+      choice($.template_value, $.quoted_value, $.bare_value),
 
-    array: ($) => seq("[", repeat(seq($.array_value, optional(","))), "]"),
-    array_value: (_) => /[^\r\n\s\t\[\],]+/,
+    assert_block: ($) => seq("{", repeat($.assert_dictionary_pair), "}"),
+    assert_dictionary_pair: ($) => seq($.assert_key, ":", $.dictionary_value),
 
-    dictionary: ($) => seq("{", repeat($.dictionary_pair), "}"),
-    dictionary_pair: ($) => seq($.key, ":", $.value),
+    array_block: ($) => seq("[", repeat(seq($.array_value, optional(","))), "]"),
+    array_value: ($) =>
+      choice($.template_value, $.quoted_value, $.bare_value),
 
-    assert_dictionary: ($) => seq("{", repeat($.assert_dictionary_pair), "}"),
-    assert_dictionary_pair: ($) => seq($.assert_key, ":", $.value),
+    raw_block: ($) => seq("{", repeat($.raw_fragment), "}"),
+    raw_fragment: ($) => choice($.raw_text, $.raw_block),
+    raw_text: (_) => token(prec(-1, /[^{}]+/)),
+
     assert_key: (_) => /[^\r\n:]+/,
 
     key: (_) => /[^\s\r\n:]+/,
-    value: (_) => /[^\r\n]*/,
+    bare_value: (_) => /[^\s\r\n",\]}][^\r\n]*/,
+    quoted_value: (_) => token(seq('"', repeat(choice(/[^"\\]+/, /\\./)), '"')),
+    template_value: (_) =>
+      token(seq("{{", repeat(choice(/[^}]+/, /}[^}]/)), "}}")),
 	},
 });
